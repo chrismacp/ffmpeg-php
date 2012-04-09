@@ -1,4 +1,5 @@
 <?php
+namespace FFmpeg;
 /**
  * FFmpegAnimatedGif represents an animated gif object
  * 

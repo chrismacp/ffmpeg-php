@@ -1,4 +1,5 @@
 <?php
+namespace FFmpeg\Provider;
 /**
  * FFprobeOutputProvider ffprobe provider implementation
  * 

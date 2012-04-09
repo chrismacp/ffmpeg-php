@@ -1,4 +1,8 @@
-<?php     
+<?php
+namespace FFmpeg;
+
+use FFmpeg\Provider\OutputProvider,
+    FFmpeg\Provider\FFmpegOutputProvider;
 /**
  * FFmpegMovie represents a movie file
  * 
@@ -652,7 +656,7 @@ class FFmpegMovie implements Serializable {
         
         // time out of range
         if (!is_numeric($frameTime) || $frameTime < 0 || $frameTime > $this->getDuration()) {
-			throw(new Exception('Frame time is not in range '.$frameTime.'/'.$this->getDuration().' '.$this->getFilename()));
+	    throw new \Exception('Frame time is not in range '.$frameTime.'/'.$this->getDuration().' '.$this->getFilename());
         }
         
         if(is_numeric($height) && is_numeric($width)) {
@@ -693,10 +697,10 @@ class FFmpegMovie implements Serializable {
 			// find error in output
 			preg_match(self::$REGEX_ERRORS, $output, $errors);
 			if (array_pop($errors)) {
-				throw(new Exception(implode("\n", $errors)));
+				throw new \Exception(implode("\n", $errors));
 			}
 			//default file not found error
-            throw(new Exception('TMP image not found/written '. $frameFilePath));
+            throw new \Exception('TMP image not found/written '. $frameFilePath);
         }
         
         // Create gdimage and delete temporary image

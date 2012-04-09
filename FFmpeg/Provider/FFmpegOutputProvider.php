@@ -1,17 +1,18 @@
 <?php
+namespace FFmpeg\Provider;
 /**
- * StringOutputProvider ffmpeg provider implementation
+ * FFmpegOutputProvider ffmpeg provider implementation
  * 
- * @author funrob (Rob Walch, rwalch@gmail.com)
+ * @author char0n (Vladimír Gorej, gorej@codescale.net)
  * @package FFmpegPHP
  * @subpackage provider
  * @license New BSD
  * @version 2.6
  */
-class StringOutputProvider extends AbstractOutputProvider {
+class FFmpegOutputProvider extends AbstractOutputProvider {
 	
-    protected $_output;
-
+    protected static $EX_CODE_NO_FFMPEG = 334560;
+		
     /**
      * Constructor
      * 
@@ -19,7 +20,6 @@ class StringOutputProvider extends AbstractOutputProvider {
      * @param boolean $persistent persistent functionality on/off
      */
     public function __construct($ffmpegBinary = 'ffmpeg', $persistent = false) {
-        $this->_output = '';
         parent::__construct($ffmpegBinary, $persistent);
     }
 	
@@ -33,23 +33,29 @@ class StringOutputProvider extends AbstractOutputProvider {
         // Persistent opening
         if ($this->persistent == true && array_key_exists(get_class($this).$this->binary.$this->movieFile, self::$persistentBuffer)) {
             return self::$persistentBuffer[get_class($this).$this->binary.$this->movieFile];
-        } 
-
-        return $this->_output;
-    }
-
-    /**
-     * Setting parsable output
-     * 
-     * @param string $output
-     */    
-    public function setOutput($output) {
+        }
         
-        $this->_output = $output;
+        // File doesn't exist
+        if (!file_exists($this->movieFile)) {
+            throw new Exception('Movie file not found', self::$EX_CODE_FILE_NOT_FOUND);
+        }
+        
+        // Get information about file from ffmpeg
+        $output = array();
+        
+        exec($this->binary.' -i '.escapeshellarg($this->movieFile).' 2>&1', $output, $retVar);        
+        $output = join(PHP_EOL, $output);
+        
+        // ffmpeg installed
+        if (!preg_match('/FFmpeg version/i', $output)) {
+            throw new Exception('FFmpeg is not installed on host server', self::$EX_CODE_NO_FFMPEG);
+        }
         
         // Storing persistent opening
         if ($this->persistent == true) {
             self::$persistentBuffer[get_class($this).$this->binary.$this->movieFile] = $output;            
-        }
+        }   
+
+        return $output;
     }
 }

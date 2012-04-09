@@ -1,4 +1,5 @@
 <?php
+namespace FFmpeg\Provider;
 /**
  * AbstractOutputProvider parent of all output providers
  * 

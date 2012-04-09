@@ -1,4 +1,5 @@
-<?php     
+<?php
+namespace FFmpeg;
 /**
  * FFmpegFrame represents one frame from the movie
  * 
