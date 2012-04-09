@@ -10,7 +10,7 @@ namespace FFmpeg\Provider;
  * @license New BSD
  * @version 2.6
  */
-abstract class AbstractOutputProvider implements OutputProvider, Serializable {
+abstract class AbstractOutputProvider implements OutputProvider, \Serializable {
 
     protected static $EX_CODE_FILE_NOT_FOUND = 334561;
     protected static $persistentBuffer       = array();

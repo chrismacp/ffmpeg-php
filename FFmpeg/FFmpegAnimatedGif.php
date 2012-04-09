@@ -14,7 +14,7 @@ namespace FFmpeg;
  * @license New BSD 
  * @version 2.6
  */
-class FFmpegAnimatedGif implements Serializable {
+class FFmpegAnimatedGif implements \Serializable {
 
     /**
     * Location in the filesystem where the animated gif will be written. 

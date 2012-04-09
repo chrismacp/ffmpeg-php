@@ -36,7 +36,7 @@ class FFprobeOutputProvider extends AbstractOutputProvider {
 
         // File doesn't exist
         if (!file_exists($this->movieFile)) {
-            throw new Exception('Movie file not found', self::$EX_CODE_FILE_NOT_FOUND);
+            throw new \Exception('Movie file not found', self::$EX_CODE_FILE_NOT_FOUND);
         }
 
         // Get information about file from ffprobe
@@ -47,7 +47,7 @@ class FFprobeOutputProvider extends AbstractOutputProvider {
                 
         // ffprobe installed
         if (!preg_match('/FFprobe version/i', $output)) {
-            throw new Exception('FFprobe is not installed on host server', self::$EX_CODE_NO_FFPROBE);
+            throw new \Exception('FFprobe is not installed on host server', self::$EX_CODE_NO_FFPROBE);
         }
 
         // Storing persistent opening

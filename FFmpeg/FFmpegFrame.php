@@ -8,7 +8,7 @@ namespace FFmpeg;
  * @license New BSD
  * @version 2.6
  */
-class FFmpegFrame implements Serializable {
+class FFmpegFrame implements \Serializable {
     
     protected static $EX_CODE_NO_VALID_RESOURCE = 334563;
     
@@ -49,7 +49,7 @@ class FFmpegFrame implements Serializable {
     */
     public function __construct($gdImage, $pts = 0.0) {
         if (!(is_resource($gdImage) && get_resource_type($gdImage) == 'gd')) {
-            throw new Exception('Param given by constructor is not valid gd resource', self::$EX_CODE_NO_VALID_RESOURCE);
+            throw new \Exception('Param given by constructor is not valid gd resource', self::$EX_CODE_NO_VALID_RESOURCE);
         }
         
         $this->gdImageData = $this->gdImageToBinaryData($gdImage);

@@ -11,7 +11,7 @@ use FFmpeg\Provider\OutputProvider,
  * @license New BSD
  * @version 2.6
  */
-class FFmpegMovie implements Serializable {
+class FFmpegMovie implements \Serializable {
 
     protected static $REGEX_DURATION          = '/Duration: ([0-9]{2}):([0-9]{2}):([0-9]{2})(\.([0-9]+))?/';
     protected static $REGEX_FRAME_RATE        = '/([0-9\.]+\sfps,\s)?([0-9\.]+)\stbr/';    

@@ -36,8 +36,8 @@ class FFmpegOutputProvider extends AbstractOutputProvider {
         }
         
         // File doesn't exist
-        if (!file_exists($this->movieFile)) {
-            throw new Exception('Movie file not found', self::$EX_CODE_FILE_NOT_FOUND);
+        if (!fopen($this->movieFile, 'r')) {
+            throw new \Exception('Movie file not found', self::$EX_CODE_FILE_NOT_FOUND);
         }
         
         // Get information about file from ffmpeg
@@ -48,7 +48,7 @@ class FFmpegOutputProvider extends AbstractOutputProvider {
         
         // ffmpeg installed
         if (!preg_match('/FFmpeg version/i', $output)) {
-            throw new Exception('FFmpeg is not installed on host server', self::$EX_CODE_NO_FFMPEG);
+            throw new \Exception('FFmpeg is not installed on host server', self::$EX_CODE_NO_FFMPEG);
         }
         
         // Storing persistent opening
